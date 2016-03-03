@@ -12,10 +12,7 @@ let dist = process.cwd() + '/dist';
 gulp.task('jshint', () => {
   let jshint = require('gulp-jshint');
   let stylish = require('jshint-stylish');
-  return gulp.src([
-      '!' + src + '/scripts/lib/**/*.js',
-      src + '/scripts/**/*.js'
-    ])
+  return gulp.src(['!' + src + '/scripts/lib/**/*.js', src + '/scripts/**/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
 });
@@ -23,7 +20,8 @@ gulp.task('jshint', () => {
 // clean dist
 gulp.task('clean', ['jshint'], () => {
   let rimraf = require('gulp-rimraf');
-  return gulp.src(dist, { read: true }).pipe(rimraf());
+  return gulp.src(dist, { read: true })
+    .pipe(rimraf());
 });
 
 // webpack
@@ -39,12 +37,11 @@ gulp.task('webpack', ['clean'], (done) => {
 gulp.task('default', ['webpack'], () => {
   let replace = require('gulp-replace');
   let htmlmin = require('gulp-htmlmin');
-  return gulp
-    .src(dist + '/*.html')
-    // .pipe(htmlmin({
-    //   collapseWhitespace: true,
-    //   removeComments: true
-    // }))
+  return gulp.src(dist + '/*.html')
+    .pipe(htmlmin({
+      collapseWhitespace: false,
+      removeComments: false
+    }))
     .pipe(gulp.dest(dist));
 });
 
