@@ -1,7 +1,4 @@
 /* Zepto 1.1.4 - zepto event ajax form ie detect fx fx_methods assets data callbacks deferred selector touch stack - zeptojs.com/license */
-
-
-
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [],
     concat = emptyArray.concat,

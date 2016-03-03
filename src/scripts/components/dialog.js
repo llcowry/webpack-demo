@@ -7,7 +7,7 @@ console.info('require dialog module.');
 var mask = require('./mask');
 
 function Dialog() {
-    // todo
+  // todo
 }
 
 module.exports = Dialog;

@@ -82,9 +82,7 @@ module.exports = (options) => {
         loader: scssLoader
       }, {
         test: /\.(jpe?g|png|svg|woff)$/i,
-        loaders: [
-          'url?limit=10000&name=images/[hash:' + hashLen + '].[name].[ext]'
-        ]
+        loader: 'url?limit=10000&name=images/[hash:' + hashLen + '].[name].[ext]'
       }, {
         test: /\.(woff2|eot|ttf|gif)$/i,
         loader: 'file?name=fonts/[hash:' + hashLen + '].[name].[ext]'

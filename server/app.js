@@ -45,7 +45,7 @@ app.proxy = true;
 
 // liveload
 app.use(liveload(staticDir, {
-  port: 3002,
+  port: pkg.localServer.port2,
   includes: ['js', 'css', 'scss', 'html'],
   excludes: ['lib']
 }));

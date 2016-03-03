@@ -3,7 +3,7 @@
 console.info('require mask module.');
 
 function mask() {
-    // todo
+  // todo
 }
 
 module.exports = mask;

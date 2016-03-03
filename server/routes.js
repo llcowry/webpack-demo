@@ -13,8 +13,8 @@ module.exports = (router, app, staticDir) => {
     debug: true
   });
   router.get('/', function*() {
-    var pages = fs.readdirSync(staticDir);
-    pages = pages.filter(function(page) {
+    let pages = fs.readdirSync(staticDir);
+    pages = pages.filter((page) => {
       return /\.html$/.test(page);
     });
     yield this.render('index', {
@@ -23,19 +23,19 @@ module.exports = (router, app, staticDir) => {
   });
   // mock api
   router.get('/api/list', function*() {
-    var list = require('../data/list');
-    var query = this.query || {};
-    var offset = query.offset || 0;
-    var limit = query.limit || 10;
-    var diff = limit - list.length;
+    let list = require('../data/list');
+    let query = this.query || {};
+    let offset = query.offset || 0;
+    let limit = query.limit || 10;
+    let diff = limit - list.length;
     if (diff <= 0) {
       this.body = {
         code: 0,
         data: list.slice(0, limit)
       };
     } else {
-      var arr = list.slice(0, list.length);
-      var i = 0;
+      let arr = list.slice(0, list.length);
+      let i = 0;
       while (diff--) arr.push(arr[i++]);
       this.body = {
         code: 0,

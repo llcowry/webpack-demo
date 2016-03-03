@@ -1,7 +1,5 @@
 'use strict';
 
-console.info('require ajax module.');
-
 var report = require('./report');
 
 function $ajax(options, retries) {
@@ -21,7 +19,6 @@ function $ajax(options, retries) {
     .done(function(r) {
       if (!r || r.code !== 0) onFail(r, r.code === -9999 ? 0 : retries);
       else $defer.resolve(r.data || {});
-
       // for stating
       if (isRetry) report(options.url.replace(/\//g, '_') + '_succ_retry');
     })
