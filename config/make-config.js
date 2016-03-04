@@ -45,11 +45,20 @@ module.exports = (options) => {
       }
       r.push(new HtmlWebpackPlugin(conf));
     });
+    r.push(new CommonsChunkPlugin({
+      name: 'common',
+      chunks: chunks
+    }));
+    r.push(new CommonsChunkPlugin({
+      name: 'vender',
+      chunks: ['common']
+    }));
     return r;
   }();
   if (debug) {
     cssLoader = 'style!css?sourceMap!postcss';
     scssLoader = 'style!css?sourceMap!postcss!sass';
+    plugins.push(new webpack.NoErrorsPlugin());
   } else {
     cssLoader = ExtractTextPlugin.extract('style', 'css?minimize!postcss');
     scssLoader = ExtractTextPlugin.extract('style', 'css?minimize!postcss!sass');
@@ -67,8 +76,8 @@ module.exports = (options) => {
     },
     resolve: {
       root: [srcDir, './node_modules'],
-      alias: pathMap,
-      extensions: ['', '.js', '.css', '.scss', '.tpl', '.png', '.jpg']
+      extensions: ['', '.js', '.jsx', '.es6', '.css', '.scss', '.tpl', '.ejs', '.png', '.jpg', '.jpeg', '.svg'],
+      alias: pathMap
     },
     resolveLoader: {
       root: path.join(__dirname, 'node_modules')
@@ -90,21 +99,17 @@ module.exports = (options) => {
         test: /\.(tpl|ejs)$/,
         loader: 'ejs'
       }, {
-        test: /\.jsx?$/,
+        test: /\.(jsx?|es6)$/,
         exclude: /node_modules/,
-        loader: 'babel?presets[]=react,presets[]=es2015'
+        loader: 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'
       }]
     },
-    plugins: [
-      new CommonsChunkPlugin({
-        name: 'common',
-        chunks: chunks
-      }),
-      new CommonsChunkPlugin({
-        name: 'vender',
-        chunks: ['common']
-      })
-    ].concat(plugins),
+    plugins: plugins,
+    postcss: () => [
+      require('postcss-cssnext'),
+      require('autoprefixer')({ browsers: ['last 2 versions', '> 1%'] }),
+      require('cssnano')
+    ],
     devServer: {
       hot: true,
       noInfo: false,
@@ -114,12 +119,7 @@ module.exports = (options) => {
         cached: false,
         colors: true
       }
-    },
-    postcss: () => [
-      require('postcss-cssnext'),
-      require('autoprefixer')({ browsers: ['last 2 versions', '> 1%'] }),
-      require('cssnano')
-    ]
+    }
   };
   return config;
 }

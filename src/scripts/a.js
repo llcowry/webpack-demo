@@ -9,8 +9,8 @@ require('zepto');
 
 var _ = require('lodash');
 var url = require('./utils/url');
-var report = require('./helpers/report');
 var component = url.getQuery('component');
+var xl = require('./utils/xl');
 
 if ('dialog' === component) {
   require.ensure([], function(require) {
@@ -49,5 +49,4 @@ require.ensure([], function() {
 
 var logoImg = require('webpackLogo');
 var $logo = $('<img />').attr('src', logoImg);
-
 $('#logo').html($logo);

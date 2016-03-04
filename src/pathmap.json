@@ -1,5 +1,5 @@
 {
   "zepto": "scripts/lib/zepto",
-  "commonCss": "scss/common.scss",
-  "webpackLogo": "images/webpack.png"
+  "commonCss": "scss/common",
+  "webpackLogo": "images/webpack"
 }
